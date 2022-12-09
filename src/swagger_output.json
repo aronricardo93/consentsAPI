@@ -1,0 +1,366 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "API Consents - Open Insurance Brazil",
+    "description": "API that deals with the creation, consultation and revocation of consents for Open Insurance Brasil Fase 2",
+    "version": "2.0.0"
+  },
+  "host": "localhost:3000",
+  "basePath": "/open-insurance/consents/v1/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/createConsent": {
+      "post": {
+        "tags": [
+          "Consent"
+        ],
+        "description": "Create a consent. It's necessary a token",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string",
+            "description":"Enter your Bearer token in the format `Bearer <token>`"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "array",
+              "properties": {
+                "permissions": {
+                  "example": [ 
+                    "DAMAGES_AND_PEOPLE_OIL_CLAIM_READ",
+                    "DAMAGES_AND_PEOPLE_RESPONSIBILITY_READ",
+                    "DAMAGES_AND_PEOPLE_RESPONSIBILITY_POLICYINFO_READ",
+                    "DAMAGES_AND_PEOPLE_RESPONSIBILITY_PREMIUM_READ",
+                    "DAMAGES_AND_PEOPLE_RESPONSIBILITY_CLAIM_READ",
+                    "DAMAGES_AND_PEOPLE_TRANSPORT_READ",
+                    "DAMAGES_AND_PEOPLE_TRANSPORT_POLICYINFO_READ",
+                    "DAMAGES_AND_PEOPLE_TRANSPORT_PREMIUM_READ",
+                    "DAMAGES_AND_PEOPLE_TRANSPORT_CLAIM_READ",
+                    "DAMAGES_AND_PEOPLE_FINANCIAL_READ",
+                    "DAMAGES_AND_PEOPLE_FINANCIAL_RISKS_POLICYINFO_READ",
+                    "DAMAGES_AND_PEOPLE_FINANCIAL_RISKS_PREMIUM_READ",
+                    "DAMAGES_AND_PEOPLE_FINANCIAL_RISKS_CLAIM_READ",
+                    "DAMAGES_AND_PEOPLE_RURAL_READ",
+                    "DAMAGES_AND_PEOPLE_RURAL_POLICYINFO_READ",
+                    "DAMAGES_AND_PEOPLE_RURAL_PREMIUM_READ",
+                    "DAMAGES_AND_PEOPLE_RURAL_CLAIM_READ",
+                    "DAMAGES_AND_PEOPLE_AUTO_READ",
+                    "DAMAGES_AND_PEOPLE_AUTO_POLICYINFO_READ",
+                    "DAMAGES_AND_PEOPLE_AUTO_PREMIUM_READ",
+                    "DAMAGES_AND_PEOPLE_AUTO_CLAIM_READ",
+                    "DAMAGES_AND_PEOPLE_HOUSING_READ",
+                    "DAMAGES_AND_PEOPLE_HOUSING_POLICYINFO_READ",
+                    "DAMAGES_AND_PEOPLE_HOUSING_PREMIUM_READ",
+                    "DAMAGES_AND_PEOPLE_HOUSING_CLAIM_READ",
+                    "DAMAGES_AND_PEOPLE_ACCEPTANCE_AND_BRANCHES_ABROAD_READ",
+                    "DAMAGES_AND_PEOPLE_ACCEPTANCE_AND_BRANCHES_ABROAD_POLICYINFO_READ",
+                    "DAMAGES_AND_PEOPLE_ACCEPTANCE_AND_BRANCHES_ABROAD_PREMIUM_READ",
+                    "DAMAGES_AND_PEOPLE_ACCEPTANCE_AND_BRANCHES_ABROAD_CLAIM_READ",
+                    "DAMAGES_AND_PEOPLE_PERSON_READ",
+                    "DAMAGES_AND_PEOPLE_PERSON_POLICYINFO_READ",
+                    "DAMAGES_AND_PEOPLE_PERSON_PREMIUM_READ",
+                    "DAMAGES_AND_PEOPLE_PERSON_CLAIM_READ",
+                    "RESOURCES_READ"
+                ]
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/updateConsent/{id}": {
+      "put": {
+        "tags": [
+          "Consent"
+        ],
+        "description": "",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string",
+            "description":"Enter your Bearer token in the format `Bearer <token>`"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "example": "AUTHORISED"
+                },
+                "permissions": {
+                  "example": [
+                    "DAMAGES_AND_PEOPLE_RURAL_POLICYINFO_READ",
+				            "DAMAGES_AND_PEOPLE_RURAL_PREMIUM_READ",
+                    "DAMAGES_AND_PEOPLE_RURAL_CLAIM_READ",
+                    "DAMAGES_AND_PEOPLE_AUTO_READ",
+                    "DAMAGES_AND_PEOPLE_AUTO_POLICYINFO_READ"
+                  ]
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/findConsentById/{id}": {
+      "get": {
+        "tags": [
+          "Consent"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/findConsentsByDocument/{document}": {
+      "get": {
+        "tags": [
+          "Consent"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "document",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Document not Found!"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/removeConsent/{id}": {
+      "delete": {
+        "tags": [
+          "Consent"
+        ],
+        "description": "",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string",
+            "description":"Enter your Bearer token in the format `Bearer <token>`"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/register": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "identification": {
+                  "example": "string"
+                },
+                "password": {
+                  "example": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "identification": {
+                  "example": "06083506565"
+                },
+                "password": {
+                  "example": "Aron0393"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": 1
+        },
+        "identification": {
+          "type": "string",
+          "example":"12345678910"
+        },
+        "password": {
+          "type": "string",
+          "example": "test123"
+        }
+      }
+    },
+    "Consent": {
+      "type": "object",
+      "properties": {
+        "consentId": {
+          "type": "uuid",
+          "example": "urn:mapfre:6cd840a6-3610-4ba6-930c-f6a7e511ca18" 
+        },
+        "status": {
+          "type": "enum",
+          "example": "AWAITING_AUTHORIZATION" 
+        },
+        "identification": {
+          "type": "string",
+          "example": "12345678910"
+        },
+        "createdAt": {
+          "type": "datetime"
+        },
+        "updatedAt": {
+          "type": "datetime"
+        }
+      }
+    },
+    "Permissions": {
+      "type": "object",
+      "properties": {
+        "permissions": {
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "permissions": {
+            "type": "array",
+            "example": [
+              "DAMAGES_AND_PEOPLE_OIL_CLAIM_READ",
+              "DAMAGES_AND_PEOPLE_RESPONSIBILITY_READ",
+              "DAMAGES_AND_PEOPLE_RESPONSIBILITY_POLICYINFO_READ"
+            ]
+          }
+        }
+      }
+    }
+  }
+}
