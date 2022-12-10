@@ -1,5 +1,6 @@
 import express from 'express'
 import dotenv from 'dotenv'
+import { Request, Response } from 'express'
 import cors from 'cors'
 import passport from 'passport'
 import swaggerUi from 'swagger-ui-express'
@@ -19,5 +20,9 @@ app.use('/open-insurance/v1/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
 app.use('/open-insurance/consents/v1', userRoute)
 app.use('/open-insurance/consents/v1',consentRoute)
+
+app.use((req: Request, res: Response) => {
+    res.status(404).json({error: 'Endpoint not found!'})
+})
 
 app.listen(process.env.PORT, () => console.log("Server running..."))
