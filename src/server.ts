@@ -13,8 +13,11 @@ dotenv.config()
 const app = express()
 
 app.use(express.json())
-app.use(cors())
+app.use(cors({origin: "*"}))
+
 app.use(passport.initialize())
+
+app.use(express.urlencoded({extended: true}))
 
 app.use('/open-insurance/v1/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
@@ -24,5 +27,5 @@ app.use('/open-insurance/consents/v1',consentRoute)
 app.use((req: Request, res: Response) => {
     res.status(404).json({error: 'Endpoint not found!'})
 })
-
+const doc = '/open-insurance/v1/doc/'
 app.listen(process.env.PORT, () => console.log("Server running..."))
