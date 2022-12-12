@@ -10,7 +10,7 @@ const doc = {
         description: "API that deals with the creation, consultation and revocation of consents for Open Insurance Brasil Fase 2",
         version: "2.0.0"
     },
-    host: 'localhost:3000',
+    host: 'https://consent-api.up.railway.app/',
     schemes: ['http'],
     definitions: {},
 };

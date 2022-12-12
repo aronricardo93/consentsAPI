@@ -37,12 +37,14 @@ const consentRouter_1 = __importDefault(require("./routes/consentRouter"));
 dotenv.config();
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
-app.use((0, cors_1.default)());
+app.use((0, cors_1.default)({ origin: "*" }));
 app.use(passport_1.default.initialize());
+app.use(express_1.default.urlencoded({ extended: true }));
 app.use('/open-insurance/v1/doc', swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swagger_output_json_1.default));
 app.use('/open-insurance/consents/v1', userRouter_1.default);
 app.use('/open-insurance/consents/v1', consentRouter_1.default);
 app.use((req, res) => {
     res.status(404).json({ error: 'Endpoint not found!' });
 });
+const doc = '/open-insurance/v1/doc/';
 app.listen(process.env.PORT, () => console.log("Server running..."));
