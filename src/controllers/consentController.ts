@@ -58,7 +58,7 @@ export const updateConsent = async (req: Request, res: Response) => {
       
       res.status(200).json({ data: consent, permissions: data.permissions?.permissions, links, meta });
       }catch(err){
-        res.status(500).json(err)
+        res.status(404).json({Error: "Id not found!"})
       }
     }
 }
