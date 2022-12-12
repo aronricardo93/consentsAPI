@@ -30,11 +30,15 @@ export const findById = async(id: string) => {
   const consent = await Consent.findOne({ 
     where: {consentId: id}})
  
-  const permissions = await Permission.findOne({
-    where: { idConsent: consent?.id }
-  });
-
-  return {consent, permissions}  
+  if(consent){
+    const permissions = await Permission.findOne({
+      where: { idConsent: consent?.id }
+    });
+  
+    return {consent, permissions}  
+  }else{
+    return null
+  }
 };
 
 export const findByDocument = async(document: string) => {

@@ -54,11 +54,13 @@ export const updateConsent = async (req: Request, res: Response) => {
         const { id } = req.params;
         
         const data = await consentService.findById(id);
-        const consent = await consentService.getConsentCustomized(Number(data.consent?.id))
-      data ? 
-      res.status(200).json({ data: consent, permissions: data.permissions?.permissions, links, meta })
-      : res.status(404).json({Error: `ID ${id} not found!`})
-      
+        if(data){
+          const consent = await consentService.getConsentCustomized(Number(data.consent?.id))
+
+          res.status(200).json({ data: consent, permissions: data.permissions?.permissions, links, meta })
+        }else{
+          res.status(404).json({Error: `ID ${id} not found!`})
+        }
     }catch(err){
         res.status(500).json(err)
       }
