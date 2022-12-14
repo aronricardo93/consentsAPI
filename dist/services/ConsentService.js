@@ -37,7 +37,6 @@ const Consent_1 = require("../models/Consent");
 const Permissions_1 = require("../models/Permissions");
 const PermissionService = __importStar(require("../services/PermissionService"));
 const crypto_1 = require("crypto");
-const console_1 = require("console");
 const createConsent = (consent, identification) => __awaiter(void 0, void 0, void 0, function* () {
     const [hasConsent] = yield Consent_1.Consent.findOrCreate({
         where: { identification },
@@ -94,10 +93,11 @@ const removeConsent = (id, identification) => __awaiter(void 0, void 0, void 0, 
     const consent = yield Consent_1.Consent.findOne({ where: { consentId: id } }).toString();
     if (consent) {
         yield PermissionService.removePermission(identification);
-        return yield Consent_1.Consent.destroy({ where: { identification } });
+        yield Consent_1.Consent.destroy({ where: { identification } });
+        return true;
     }
     else {
-        return (0, console_1.error)('Consent not found!');
+        return false;
     }
 });
 exports.removeConsent = removeConsent;

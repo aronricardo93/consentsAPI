@@ -11,6 +11,78 @@
         "https"
     ],
     "paths": {
+        "/register": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "description": "",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "identification": {
+                                    "example": "03348561211"
+                                },
+                                "password": {
+                                    "example": "opin123"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
+        "/login": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "description": "",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "identification": {
+                                    "example": "06083506565"
+                                },
+                                "password": {
+                                    "example": "Aron0393"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
         "/createConsent": {
             "post": {
                 "tags": [
@@ -170,7 +242,7 @@
                 "tags": [
                     "Consent"
                 ],
-                "description": "",
+                "description": "Enter an identification",
                 "parameters": [
                     {
                         "name": "document",
@@ -222,78 +294,6 @@
                     },
                     "404": {
                         "description": "Not Found"
-                    },
-                    "500": {
-                        "description": "Server Error"
-                    }
-                }
-            }
-        },
-        "/register": {
-            "post": {
-                "tags": [
-                    "User"
-                ],
-                "description": "",
-                "parameters": [
-                    {
-                        "name": "body",
-                        "in": "body",
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "identification": {
-                                    "example": "03344561211"
-                                },
-                                "password": {
-                                    "example": "opin123"
-                                }
-                            }
-                        }
-                    }
-                ],
-                "responses": {
-                    "201": {
-                        "description": "Created"
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "500": {
-                        "description": "Server Error"
-                    }
-                }
-            }
-        },
-        "/login": {
-            "post": {
-                "tags": [
-                    "User"
-                ],
-                "description": "",
-                "parameters": [
-                    {
-                        "name": "body",
-                        "in": "body",
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "identification": {
-                                    "example": "06083506565"
-                                },
-                                "password": {
-                                    "example": "Aron0393"
-                                }
-                            }
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    },
-                    "400": {
-                        "description": "Bad Request"
                     },
                     "500": {
                         "description": "Server Error"
