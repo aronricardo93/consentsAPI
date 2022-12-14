@@ -243,10 +243,10 @@
                             "type": "object",
                             "properties": {
                                 "identification": {
-                                    "example": "string"
+                                    "example": "03344561211"
                                 },
                                 "password": {
-                                    "example": "string"
+                                    "example": "opin123"
                                 }
                             }
                         }

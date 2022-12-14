@@ -61,10 +61,15 @@ const findById = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const consent = yield Consent_1.Consent.findOne({
         where: { consentId: id }
     });
-    const permissions = yield Permissions_1.Permission.findOne({
-        where: { idConsent: consent === null || consent === void 0 ? void 0 : consent.id }
-    });
-    return { consent, permissions };
+    if (consent) {
+        const permissions = yield Permissions_1.Permission.findOne({
+            where: { idConsent: consent === null || consent === void 0 ? void 0 : consent.id }
+        });
+        return { consent, permissions };
+    }
+    else {
+        return null;
+    }
 });
 exports.findById = findById;
 const findByDocument = (document) => __awaiter(void 0, void 0, void 0, function* () {

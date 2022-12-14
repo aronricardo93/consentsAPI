@@ -46,5 +46,4 @@ app.use('/open-insurance/consents/v1', consentRouter_1.default);
 app.use((req, res) => {
     res.status(404).json({ error: 'Endpoint not found!' });
 });
-const doc = '/open-insurance/v1/doc/';
 app.listen(process.env.PORT, () => console.log("Server running..."));

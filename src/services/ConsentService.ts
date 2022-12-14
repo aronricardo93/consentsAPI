@@ -67,8 +67,9 @@ export const removeConsent = async (id: string, identification: string) => {
   
   if(consent){
     await PermissionService.removePermission(identification)
-    return await Consent.destroy({ where: { identification } });
+    await Consent.destroy({ where: { identification } });
+    return true
   }else{
-    return error('Consent not found!')
+    return false
   }
 };

@@ -92,8 +92,13 @@ const findConsentById = (req, res) => __awaiter(void 0, void 0, void 0, function
         try {
             const { id } = req.params;
             const data = yield consentService.findById(id);
-            const consent = yield consentService.getConsentCustomized(Number((_b = data.consent) === null || _b === void 0 ? void 0 : _b.id));
-            res.status(200).json({ data: consent, permissions: (_c = data.permissions) === null || _c === void 0 ? void 0 : _c.permissions, links: links_1.links, meta: meta_1.meta });
+            if (data) {
+                const consent = yield consentService.getConsentCustomized(Number((_b = data.consent) === null || _b === void 0 ? void 0 : _b.id));
+                res.status(200).json({ data: consent, permissions: (_c = data.permissions) === null || _c === void 0 ? void 0 : _c.permissions, links: links_1.links, meta: meta_1.meta });
+            }
+            else {
+                res.status(404).json({ Error: `ID ${id} not found!` });
+            }
         }
         catch (err) {
             res.status(500).json(err);
