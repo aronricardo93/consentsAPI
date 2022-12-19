@@ -1,5 +1,5 @@
 {
-  "swagger": "2.0",
+  "swagger": "2.0.0",
   "info": {
     "title": "API Consents - Open Insurance Brazil",
     "description": "API that deals with the creation, consultation and revocation of consents for Open Insurance Brasil Fase 2",
@@ -8,7 +8,24 @@
   "host": "consent-api.up.railway.app",
   "basePath": "/open-insurance/consents/v1/",
   "schemes": [
-    "https"
+    "https",
+    "http"
+  ],
+  "securityDefinitions": {
+    "bearerAuth": {
+        "type": "apiKey",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "name": "authorization",
+        "in": "header",
+        "value": "Bearer <token>"
+    } 
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
   ],
   "paths": {
     "/register": {
@@ -92,12 +109,6 @@
         "security": [{ "bearerAuth": [] }],
         "parameters": [
           {
-            "name": "authorization",
-            "in": "header",
-            "type": "string",
-            "description":"Enter your Bearer token in the format `Bearer <token>`"
-          },
-          {
             "name": "body",
             "in": "body",
             "schema": {
@@ -166,12 +177,6 @@
         "description": "",
         "security": [{ "bearerAuth": [] }],
         "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string",
-            "description":"Enter your Bearer token in the format `Bearer <token>`"
-          },
           {
             "name": "id",
             "in": "path",
@@ -272,12 +277,6 @@
         "description": "",
         "security": [{ "bearerAuth": [] }],
         "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string",
-            "description":"Enter your Bearer token in the format `Bearer <token>`"
-          },
           {
             "name": "id",
             "in": "path",

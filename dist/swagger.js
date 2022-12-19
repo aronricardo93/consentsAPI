@@ -12,7 +12,15 @@ const doc = {
     },
     host: 'https://consent-api.up.railway.app/',
     schemes: ['http'],
-    definitions: {},
+    securityDefinitions: {
+        bearerAuth: {
+            type: 'apiKey',
+            scheme: 'bearer',
+            bearerFormat: 'JWT',
+            name: 'authorization',
+            in: 'header'
+        }
+    }
 };
 const outputFile = './src/swagger_output.json';
 const endpointsFiles = ['./src/routes/consentRouter.ts', './src/routes/userRouter.ts'];
