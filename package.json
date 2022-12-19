@@ -2,7 +2,7 @@
   "name": "api-consents-v2.0",
   "version": "2.0.0",
   "description": "",
-  "main": "server.ts",
+  "main": "dist/server.js",
   "scripts": {
     "start": "node ./dist/server.js",
     "swagger-autogen": "ts-node ./src/swagger.ts",
