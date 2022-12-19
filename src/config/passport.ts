@@ -37,11 +37,13 @@ export const verifyToken = (token: string) => {
     
     const payload =  jwt.verify(bearerToken,process.env.JWT_SECRET as string)
     
+    console.log("Entrou no verify")
+
     return payload as UserType 
 }
 
 export const privateRoute = (req:Request, res: Response, next: NextFunction) => {
-    passport.authenticate('jwt', (err, user) => {
+    passport.authenticate('jwt', (_, user) => {
         return user ? next() : res.status(401).json(notAuthorizedJson)
     })(req,res,next)
 }
