@@ -33,7 +33,9 @@ export const generateToken = (id: number, identification: string) => {
 }
 
 export const verifyToken = (token: string) => {
-    const payload =  jwt.verify(token,process.env.JWT_SECRET as string)
+    var bearerToken = "Bearer " + token
+    
+    const payload =  jwt.verify(bearerToken,process.env.JWT_SECRET as string)
     
     return payload as UserType 
 }

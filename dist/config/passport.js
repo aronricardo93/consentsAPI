@@ -38,7 +38,8 @@ const generateToken = (id, identification) => {
 };
 exports.generateToken = generateToken;
 const verifyToken = (token) => {
-    const payload = jsonwebtoken_1.default.verify(token, process.env.JWT_SECRET);
+    var bearerToken = "Bearer " + token;
+    const payload = jsonwebtoken_1.default.verify(bearerToken, process.env.JWT_SECRET);
     return payload;
 };
 exports.verifyToken = verifyToken;
