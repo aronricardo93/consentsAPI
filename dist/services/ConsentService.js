@@ -38,6 +38,7 @@ const Permissions_1 = require("../models/Permissions");
 const PermissionService = __importStar(require("../services/PermissionService"));
 const crypto_1 = require("crypto");
 const createConsent = (consent, identification) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log("teste");
     const [hasConsent] = yield Consent_1.Consent.findOrCreate({
         where: { identification },
         defaults: { consent, consentId: "urn:mapfre:" + (0, crypto_1.randomUUID)(), identification }

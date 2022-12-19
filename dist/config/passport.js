@@ -40,11 +40,12 @@ exports.generateToken = generateToken;
 const verifyToken = (token) => {
     var bearerToken = "Bearer " + token;
     const payload = jsonwebtoken_1.default.verify(bearerToken, process.env.JWT_SECRET);
+    console.log("Entrou no verify");
     return payload;
 };
 exports.verifyToken = verifyToken;
 const privateRoute = (req, res, next) => {
-    passport_1.default.authenticate('jwt', (err, user) => {
+    passport_1.default.authenticate('jwt', (_, user) => {
         return user ? next() : res.status(401).json(notAuthorizedJson);
     })(req, res, next);
 };
