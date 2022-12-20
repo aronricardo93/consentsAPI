@@ -16,7 +16,7 @@ const options = {
 
 passport.use(new JWTStrategy(options, async (payload, done) => {
     const user = await User.findByPk(payload.id)
-    
+
     if(user){
         return done(null,user) 
     }else{
@@ -33,17 +33,13 @@ export const generateToken = (id: number, identification: string) => {
 }
 
 export const verifyToken = (token: string) => {
-    var bearerToken = "Bearer " + token
-    
-    const payload =  jwt.verify(bearerToken,process.env.JWT_SECRET as string)
-    
-    console.log("Entrou no verify")
+    const payload =  jwt.verify(token,process.env.JWT_SECRET as string)
 
     return payload as UserType 
 }
 
 export const privateRoute = (req:Request, res: Response, next: NextFunction) => {
-    passport.authenticate('jwt', (_, user) => {
+    passport.authenticate('jwt', (err, user) => {
         return user ? next() : res.status(401).json(notAuthorizedJson)
     })(req,res,next)
 }

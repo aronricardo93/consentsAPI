@@ -12,7 +12,7 @@ export const createConsent = async (req: Request, res: Response) => {
   if (req.body && req.headers.authorization) {
     try{
       const { status } = req.body;
-      const [_, token] = req.headers.authorization.split(" ");
+      const [_, token] = req.headers.authorization.split(' ')[1];
       
       const user: UserType = verifyToken(token);
       

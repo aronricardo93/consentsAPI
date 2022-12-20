@@ -4,7 +4,7 @@ import { Request, Response } from 'express'
 import cors from 'cors'
 import passport from 'passport'
 import swaggerUi from 'swagger-ui-express'
-import swaggerFile from './swagger_output.json'
+import swaggerDocs from "./swagger.json"
 import userRoute from './routes/userRouter'
 import consentRoute from './routes/consentRouter'
 
@@ -19,7 +19,7 @@ app.use(passport.initialize())
 
 app.use(express.urlencoded({extended: true}))
 
-app.use('/open-insurance/v1/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
+app.use('/open-insurance/v1/doc', swaggerUi.serve, swaggerUi.setup(swaggerDocs))
 
 app.use('/open-insurance/consents/v1', userRoute)
 app.use('/open-insurance/consents/v1',consentRoute)

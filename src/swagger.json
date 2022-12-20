@@ -1,31 +1,15 @@
 {
-  "swagger": "2.0.0",
+  "openapi": "3.0.0",
   "info": {
     "title": "API Consents - Open Insurance Brazil",
     "description": "API that deals with the creation, consultation and revocation of consents for Open Insurance Brasil Fase 2",
     "version": "2.0.0"
-  },
-  "host": "consent-api.up.railway.app",
-  "basePath": "/open-insurance/consents/v1/",
-  "schemes": [
-    "https",
-    "http"
-  ],
-  "securityDefinitions": {
-    "bearerAuth": {
-        "type": "apiKey",
-        "scheme": "bearer",
-        "bearerFormat": "JWT",
-        "name": "authorization",
-        "in": "header",
-        "value": "Bearer <token>"
-    } 
-  },
-  "consumes": [
-    "application/json"
-  ],
-  "produces": [
-    "application/json"
+    },
+  "servers": [
+    {
+      "url": "https://consent-api.up.railway.app/open-insurance/consents/v1",
+      "description": "RestAPI - Consents"
+    }
   ],
   "paths": {
     "/register": {
@@ -33,33 +17,83 @@
         "tags": [
           "User"
         ],
-        "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "identification": {
-                  "example": "03348561211"
-                },
-                "password": {
-                  "example": "opin123"
+        "description": "This route records uses",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "identification": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              },
+              "examples": {
+                "UserPost - Example": {
+                  "value": {
+                    "identification": "09811234568",
+                    "password": "opin123"
+                  }
                 }
               }
             }
           }
-        ],
+        },
         "responses": {
-          "201": {
-            "description": "Created"
+          "500":{
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type":"string"
+                    }
+                  }
+                }
+              }
+            }
           },
           "400": {
-            "description": "Bad Request"
+            "description": "Bad Request - CPF already exists.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
           },
-          "500": {
-            "description": "Server Error"
+          "201": {
+            "description": "Created with success!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "identification": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -69,33 +103,83 @@
         "tags": [
           "User"
         ],
-        "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "identification": {
-                  "example": "06083506565"
-                },
-                "password": {
-                  "example": "Aron0393"
+        "description": "This route is responsible for User Login and generate a valid token",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "identification": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              },
+              "examples": {
+                "Login - Example": {
+                  "value": {
+                    "identification": "06083506565",
+                    "password": "Aron0393"
+                  }
                 }
               }
             }
           }
-        ],
+        },
         "responses": {
-          "200": {
-            "description": "OK"
+          "500":{
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type":"string"
+                    }
+                  }
+                }
+              }
+            }
           },
           "400": {
-            "description": "Bad Request"
+            "description": "Bad Request - Identification or password are wrongs!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
           },
-          "500": {
-            "description": "Server Error"
+          "200": {
+            "description": "Login with success!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "identification": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -359,6 +443,25 @@
             ]
           }
         }
+      }
+    }
+  },
+  "components": {
+    "schema": {
+      "Message": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     }
   }

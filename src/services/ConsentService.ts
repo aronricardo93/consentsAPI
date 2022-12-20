@@ -7,9 +7,6 @@ import { statusType } from "../enums/statusType";
 
 
 export const createConsent = async (consent: object, identification: string) => {
-
-  console.log("teste")
-
   const [hasConsent] = await Consent.findOrCreate({
     where: { identification },
     defaults: {consent, consentId: "urn:mapfre:" + randomUUID(), identification}})
