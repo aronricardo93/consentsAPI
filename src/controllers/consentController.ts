@@ -11,9 +11,8 @@ export const createConsent = async (req: Request, res: Response) => {
   // #swagger.tags = ['Consent']
   if (req.body && req.headers.authorization) {
     try{
-      const { status } = req.body;
-      const [_, token] = req.headers.authorization.split(' ')[1];
-      
+      const { status } = req.body
+      const token = req.headers.authorization.split(' ')[1];
       const user: UserType = verifyToken(token);
       
       const consent = await consentService.createConsent(status, user.identification);
@@ -22,7 +21,7 @@ export const createConsent = async (req: Request, res: Response) => {
       
       res.status(201).json({ loggedUser: { identification: user.identification , rel: 'CPF'}, data: consentCustomized, permissions, links, meta });
     }catch(err){
-      res.status(500).json(err)
+      res.status(400).json(err)
     }
   }
 }

@@ -54,7 +54,7 @@ const createConsent = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     if (req.body && req.headers.authorization) {
         try {
             const { status } = req.body;
-            const [_, token] = req.headers.authorization.split(' ')[1];
+            const token = req.headers.authorization.split(' ')[1];
             const user = (0, passport_1.verifyToken)(token);
             const consent = yield consentService.createConsent(status, user.identification);
             const permissions = yield permissionService.createPermission(req.body.permissions, consent.id, user.identification);
@@ -62,7 +62,7 @@ const createConsent = (req, res) => __awaiter(void 0, void 0, void 0, function* 
             res.status(201).json({ loggedUser: { identification: user.identification, rel: 'CPF' }, data: consentCustomized, permissions, links: links_1.links, meta: meta_1.meta });
         }
         catch (err) {
-            res.status(500).json(err);
+            res.status(400).json(err);
         }
     }
 });
